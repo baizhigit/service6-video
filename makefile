@@ -8,15 +8,15 @@ run:
 # ==============================================================================
 # Define dependencies
 
-GOLANG          := golang:1.22
-ALPINE          := alpine:3.19
-KIND            := kindest/node:v1.29.2
-POSTGRES        := postgres:16.2
-GRAFANA         := grafana/grafana:10.4.0
-PROMETHEUS      := prom/prometheus:v2.51.0
-TEMPO           := grafana/tempo:2.4.0
-LOKI            := grafana/loki:2.9.0
-PROMTAIL        := grafana/promtail:2.9.0
+GOLANG          := golang:1.25
+ALPINE          := alpine:3.23
+KIND            := kindest/node:v1.35.0
+POSTGRES        := postgres:18.1
+GRAFANA         := grafana/grafana:12.4.0
+PROMETHEUS      := prom/prometheus:v3.8.0
+TEMPO           := grafana/tempo:2.9.0
+LOKI            := grafana/loki:3.6
+PROMTAIL        := grafana/promtail:3.6
 
 KIND_CLUSTER    := ardan-starter-cluster
 NAMESPACE       := sales-system

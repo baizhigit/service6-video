@@ -1,6 +1,6 @@
-module github.com/ardanlabs/service
+module github.com/baizhigit/service6-video
 
-go 1.24
+go 1.25
 
 toolchain go1.24.4
 

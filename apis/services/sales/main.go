@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"syscall"
 
-	"github.com/ardanlabs/service/foundation/logger"
+	"github.com/baizhigit/service6-video/foundation/logger"
 )
 
 func main() {
