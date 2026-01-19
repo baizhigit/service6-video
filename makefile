@@ -12,7 +12,7 @@ GOLANG          := golang:1.25
 ALPINE          := alpine:3.23
 KIND            := kindest/node:v1.35.0
 POSTGRES        := postgres:18.1
-GRAFANA         := grafana/grafana:12.4.0
+GRAFANA         := grafana/grafana:12.3.0
 PROMETHEUS      := prom/prometheus:v3.8.0
 TEMPO           := grafana/tempo:2.9.0
 LOKI            := grafana/loki:3.6
@@ -27,6 +27,28 @@ VERSION         := 0.0.1
 SALES_IMAGE     := $(BASE_IMAGE_NAME)/$(SALES_APP):$(VERSION)
 METRICS_IMAGE   := $(BASE_IMAGE_NAME)/metrics:$(VERSION)
 AUTH_IMAGE      := $(BASE_IMAGE_NAME)/$(AUTH_APP):$(VERSION)
+
+# ==============================================================================
+# Install dependencies
+
+dev-gotooling:
+	go install github.com/divan/expvarmon@latest
+	go install github.com/rakyll/hey@latest
+	go install honnef.co/go/tools/cmd/staticcheck@latest
+	go install golang.org/x/vuln/cmd/govulncheck@latest
+	go install golang.org/x/tools/cmd/goimports@latest
+
+dev-docker:
+	docker pull $(GOLANG)
+	docker pull $(ALPINE)
+	docker pull $(KIND)
+	docker pull $(POSTGRES)
+	docker pull $(GRAFANA)
+	docker pull $(PROMETHEUS)
+	docker pull $(TEMPO)
+	docker pull $(LOKI)
+	docker pull $(PROMTAIL)
+
 
 # ==============================================================================
 # Running from within k8s/kind
