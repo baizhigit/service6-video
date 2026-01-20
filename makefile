@@ -12,6 +12,22 @@ version:
 	go run apis/services/sales/main.go --version
 
 # ==============================================================================
+# Detect operating system and set the appropriate open command
+
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S),Darwin)
+    OPEN_CMD := open
+else
+    # Check if we are running inside WSL
+    ifneq ($(shell uname -a | grep -i Microsoft),)
+        OPEN_CMD := explorer.exe
+    else
+        OPEN_CMD := xdg-open
+    endif
+endif
+
+# ==============================================================================
 # Define dependencies
 
 GOLANG          := golang:1.25
@@ -33,6 +49,7 @@ VERSION         := 0.0.1
 SALES_IMAGE     := $(BASE_IMAGE_NAME)/$(SALES_APP):$(VERSION)
 METRICS_IMAGE   := $(BASE_IMAGE_NAME)/metrics:$(VERSION)
 AUTH_IMAGE      := $(BASE_IMAGE_NAME)/$(AUTH_APP):$(VERSION)
+
 
 # ==============================================================================
 # Install dependencies
@@ -118,6 +135,15 @@ dev-describe-deployment:
 dev-describe-sales:
 	kubectl describe pod --namespace=$(NAMESPACE) -l app=$(SALES_APP)
 
+
+# ==============================================================================
+# Metrics and Tracing
+
+metrics:
+	expvarmon -ports="localhost:3010" -vars="build,requests,goroutines,errors,panics,mem:memstats.HeapAlloc,mem:memstats.HeapSys,mem:memstats.Sys"
+
+statsviz:
+	$(OPEN_CMD) http://localhost:3010/debug/statsviz
 
 # ==============================================================================
 # Modules support
