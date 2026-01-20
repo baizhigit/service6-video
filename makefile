@@ -14,6 +14,12 @@ version:
 curl-test:
 	curl -il -X GET http://localhost:3000/test
 
+curl-ready:
+	curl -il -X GET http://localhost:3000/readiness
+
+curl-live:
+	curl -il -X GET http://localhost:3000/liveness
+
 # ==============================================================================
 # Detect operating system and set the appropriate open command
 
