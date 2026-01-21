@@ -3,8 +3,9 @@ package checkapi
 
 import (
 	"context"
-	"encoding/json"
 	"net/http"
+
+	"github.com/baizhigit/service6-video/foundation/web"
 )
 
 // readiness checks if the database is ready and if not will return a 500 status.
@@ -17,7 +18,7 @@ func readiness(ctx context.Context, w http.ResponseWriter, r *http.Request) erro
 		Status: "OK",
 	}
 
-	return json.NewEncoder(w).Encode(status)
+	return web.Respond(ctx, w, status, http.StatusOK)
 }
 
 // liveness returns simple status info if the service is alive. If the
@@ -31,5 +32,5 @@ func liveness(ctx context.Context, w http.ResponseWriter, r *http.Request) error
 		Status: "OK",
 	}
 
-	return json.NewEncoder(w).Encode(status)
+	return web.Respond(ctx, w, status, http.StatusOK)
 }
